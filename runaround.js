@@ -12,6 +12,11 @@ $(document).ready(function() {
     });
     console.log(x)
     console.log(mapURL)
+
+    // ***Marker***
+
+    // ***Get Location***
+
 });
 
 function initMap() {
@@ -27,16 +32,18 @@ function initMap() {
     var marker = new google.maps.Marker({
         position: uluru,
         map: map
+
+
     });
 }
 
-$(window).bind('scroll', function() {
-    if ($(window).scrollTop() > 600) {
-        $('#first').fadeOut();
-        // } else if ($(window.scrollTop() < 500)) {
-        // $('#first').fadeIn();
-    }
-});
+// $(window).bind('scroll', function() {
+//     if ($(window).scrollTop() > 600) {
+//         $('#first').fadeOut();
+//         } else if ($(window.scrollTop() < 500)) {
+//         $('#first').fadeIn();
+//     }
+// });
 
 setTimeout(function() {
     $("#myModal").modal('show')
