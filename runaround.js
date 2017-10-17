@@ -36,6 +36,20 @@ $(document).ready(function(){
     }
 
 
+  $(window).bind('scroll', function() {
+     if ($(window).scrollTop() > 0) {
+         $('#first').fadeOut();
+     }
+     else {
+         $('#first').fadeIn();
+     }
+  });
+
+  setTimeout(function(){
+    $("#myModal").modal('show')
+  }, 1000)
+
+
 
 
 

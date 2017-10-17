@@ -1,3 +1,6 @@
+body{
+	background: url("cloud.jpg")no-repeat center;
+}
 
 #wrapper{
 	height: 600px;
@@ -11,8 +14,21 @@
 #box{
 	height: 150px;
 	width: 100%;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	margin-bottom: 50px;
 	margin-top: 20px;
-	background-color:#ecf2f8;
+	font-size: 20px;
+	font-family: "Optima";
+	background-color: white;
 }
+
+#first{
+	height: 100vh;
+	width: 90vw;
+	margin: auto;
+}
+
+input, select{
+	margin-top:30px;
+}
+
