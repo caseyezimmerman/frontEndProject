@@ -60,15 +60,16 @@
 	</div>
 		
 	</div> --> 
-<div class="container">
+<div class="container col-sm-12">
 	<img id="first" src="first.jpg">
 </div>
 
-<form>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-4">
+            	<form class="run-form">
                 <div class="col-sm-12" id="box"><span class="info">Tell us your current location</span></br>
                 	<input type="text" placeholder="Current Location" />
                 </div>
@@ -81,8 +82,9 @@
 					</select>
                 </div>
                 <div class="col-sm-12" id="box"><span class="info">Generate your routes</span> </br>
-                	<input type="submit" placeholder="Run!" />
+                	<button class="btn btn-default" type="submit" placeholder="Run!">Submit</button>
                 </div>
+                </form>
             </div>
             <div class="col-sm-8" id="wrapper">
                 <div id="map"></div>
@@ -90,7 +92,8 @@
         </div>
     </div>
 </div>
-</form>
+
+
 
 <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

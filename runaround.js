@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $('.run-form').submit(function(event){
+    event.preventDefault();
+    console.log("click")
+  })
 	// var mapURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA9O_Kfl3FvK2OwNOA8qrLKpJ7wVTycGms`
 	var mapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
 	var map;
@@ -33,6 +37,36 @@ $(document).ready(function(){
             position: uluru,
             map: map
         });
+    
+
+            // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
     }
 
 
@@ -48,6 +82,8 @@ $(document).ready(function(){
   setTimeout(function(){
     $("#myModal").modal('show')
   }, 1000)
+
+  
 
 
 
