@@ -1,0 +1,18 @@
+
+#wrapper{
+	height: 600px;
+}
+
+#map{
+	height: 100%;
+	margin-top: 20px;
+}
+
+#box{
+	height: 150px;
+	width: 100%;
+	border: 1px solid black;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	background-color:#ecf2f8;
+}
