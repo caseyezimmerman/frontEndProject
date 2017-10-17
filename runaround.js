@@ -3,6 +3,8 @@ $(document).ready(function(){
     event.preventDefault();
     console.log("click")
   })
+
+  
 	// var mapURL = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA9O_Kfl3FvK2OwNOA8qrLKpJ7wVTycGms`
 	var mapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
 	var map;
@@ -46,7 +48,7 @@ $(document).ready(function(){
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
+            var infoWindow = new google.maps.InfoWindow()
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
