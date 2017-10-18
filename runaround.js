@@ -33,6 +33,7 @@ $(document).ready(function(){
 
 
   var markerArray = []
+
         var uluru = {
             lat: 33.7490,
             lng: -84.3880
@@ -58,8 +59,10 @@ $(document).ready(function(){
             var init_lng = -84.3880
             var range = 0.01
 
+            var pointsLat = []
+
       function findCoordinates(lat, lng, range){
-          var numOfPoints = 2;
+          var numOfPoints = 3;
 
           var degreesPerPoint = -2 /numOfPoints;
           var currentAngle = 90;
@@ -77,14 +80,43 @@ $(document).ready(function(){
             position: lat_lng,
             map: map
           });
+          markerArray.push(marker);
+          latArray.push(lat_lng.lat()) ////push lats of points we just looped through and placed on map
+          lngArray.push(lat_lng.lng()) ////push lngs of points we just looped through and placed on map
+          // console.log(markerArray)
+          
+          // console.log(lat_lng.lat())
+          // console.log(lat_lng.lng())
 
+        
           currentAngle += degreesPerPoint;
         }
+
+        // for(var i=0; i < numOfPoints; i++){
+        //     pointsLat.push(lat_lng.lat())
+        //   }
+        //   console.log(pointsLat)
       }
+
+
+
+      var latArray = []   ///////make empty array for latitudes
+      var lngArray = []  ////////make empty array for longitudes
+
+      console.log(latArray);
+      console.log(lngArray);
+
+
+
 
       function initialize(){
         var mapDiv = document.getElementById('#map');
         var init_lat_lng = new google.maps.LatLng(init_lat, init_lng);
+        markerArray.push(marker);
+        latArray.push(init_lat_lng.lat()) /////push lat of our initial point
+        lngArray.push(init_lat_lng.lng()) /////push lng of our initial point
+        // console.log(init_lat_lng.lat())
+        // console.log(init_lat_lng.lng());
         var myOptions = {
           zoom: 13,
           center: init_lat_lng, 
@@ -126,24 +158,25 @@ $(document).ready(function(){
 
 
     //         // Try HTML5 geolocation.
-    //     if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition(function(position) {
-    //         var pos = {
-    //           lat: position.coords.latitude,
-    //           lng: position.coords.longitude
-    //         };
-    //         var infoWindow = new google.maps.InfoWindow()
-    //         infoWindow.setPosition(pos);
-    //         infoWindow.setContent('Current Location');
-    //         infoWindow.open(map);
-    //         map.setCenter(pos);
-    //       }, function() {
-    //         handleLocationError(true, infoWindow, map.getCenter());
-    //       });
-    //     } else {
-    //       // Browser doesn't support Geolocation
-    //       handleLocationError(false, infoWindow, map.getCenter());
-    //     }
+      //////////GETTING CURRENT LOCATION//////////
+        // if (navigator.geolocation) {
+        //   navigator.geolocation.getCurrentPosition(function(position) {
+        //     var pos = {
+        //       lat: position.coords.latitude,
+        //       lng: position.coords.longitude
+        //     };
+        //     var infoWindow = new google.maps.InfoWindow()
+        //     infoWindow.setPosition(pos);
+        //     infoWindow.setContent('Current Location');
+        //     infoWindow.open(map);
+        //     map.setCenter(pos);
+        //   }, function() {
+        //     handleLocationError(true, infoWindow, map.getCenter());
+        //   });
+        // } else {
+        //   // Browser doesn't support Geolocation
+        //   handleLocationError(false, infoWindow, map.getCenter());
+        // }
       
 
     //   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
