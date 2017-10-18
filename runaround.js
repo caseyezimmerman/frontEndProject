@@ -2,6 +2,21 @@ $(document).ready(function(){
   $('.run-form').submit(function(event){
     event.preventDefault();
     console.log("click")
+    userLocation = $("#location").val()
+    codeAddress()
+    // var geoURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${userLocation}`
+    // console.log(userLocation)
+    //   var x = $.ajax({
+    //   type: 'GET',
+    //   // url: mapURL,
+    //   // url2: roadURL,
+    //   url3: geoURL,
+    //   dataType: 'jsonp',
+    //   jsonpCallback: 'blah',
+    //   async: false, // this is by default false, so not need to mention
+    //   crossDomain: true // tell the browser to allow cross domain calls.
+    // });
+    // console.log(userLocation)
   })
 
   
@@ -10,13 +25,15 @@ $(document).ready(function(){
   var map;
   var roadURL = `https://roads.googleapis.com/v1/snapToRoads?path=60.170880,24.942795|60.170879,24.942796|60.170877,24.942796&key=${apiKey}`
 	
+  // console.log(userLocation)
 
-
+   var userLocation;
 
 	 var x = $.ajax({
       type: 'GET',
       url: mapURL,
       url2: roadURL,
+      // url3: geoURL,
       dataType: 'jsonp',
       jsonpCallback: 'initMap',
       async: false, // this is by default false, so not need to mention
@@ -25,10 +42,47 @@ $(document).ready(function(){
 
 	 console.log(x)
 	 console.log(mapURL)
+   
   });
 
+  var geocoder;
+
+  function codeAddress(){
+          var address = document.getElementById("location").value;
+          geocoder = new google.maps.Geocoder();
+          geocoder.geocode({'address': address}, function(results,status){
+            if(status === 'OK'){
+              var locationLatLng = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng()
+              }
+              initMap(locationLatLng)
+              
+
+              // map.setCenter(results[0].geometry.location);
+              // var marker = new google.maps.Marker({
+              //   map: map,
+              //   position: results[0].geometry.location
+                
+              // })
+              console.log(results[0].geometry.location.lat())
+              console.log(results[0].geometry.location.lng())
+            }else{
+              alert("not valid")
+            }
+
+          })
+
+
+        }
+
+
+
   
- function initMap() {
+ function initMap(location = {
+            lat: 33.989073,
+            lng: -84.507361
+        }) {
   
 
 
@@ -40,11 +94,11 @@ $(document).ready(function(){
         };
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
-            center: uluru
+            center: location
         });
         console.log(map)
         var marker = new google.maps.Marker({
-            position: uluru,
+            position: location,
             map: map
         });
     
@@ -55,8 +109,8 @@ $(document).ready(function(){
 
 
 
-            var init_lat = 33.989073
-            var init_lng = -84.507361
+            var init_lat = location.lat
+            var init_lng = location.lng
             var range = 0.01
 
             var pointsLat = []
@@ -64,7 +118,7 @@ $(document).ready(function(){
       function findCoordinates(lat, lng, range){
           var numOfPoints = 4;
 
-          var degreesPerPoint = -2 /numOfPoints;
+          var degreesPerPoint = -4 /numOfPoints;
           var currentAngle = 45;
           var x2;
           var y2;
@@ -109,7 +163,7 @@ $(document).ready(function(){
       console.log(lngArray);
 
 
-
+      
 
       function initialize(){
         var mapDiv = document.getElementById('#map');
@@ -119,6 +173,8 @@ $(document).ready(function(){
         lngArray.push(init_lat_lng.lng()) /////push lng of our initial point
         // console.log(init_lat_lng.lat())
         // console.log(init_lat_lng.lng());
+        // geocoder = new google.maps.Geocoder();
+        console.log(geocoder)
         var myOptions = {
           zoom: 13,
           center: init_lat_lng, 
@@ -127,6 +183,10 @@ $(document).ready(function(){
           mapTypeId: 'roadmap' ///////or this one
         }
 
+
+
+
+       
 
 
         // var map = new google.maps.Map(mapDiv, {
@@ -145,7 +205,7 @@ $(document).ready(function(){
         findCoordinates(init_lat, init_lng, range);
          calculateAndDislayRoute(
         directionsDisplay, directionsService, markerArray, stepDisplay, map);
-
+         // codeAddress()
       }
 
 
@@ -155,7 +215,25 @@ $(document).ready(function(){
 
 
 
+        // function codeAddress(){
+        //   var address = document.getElementById("location").value;
+        //   geocoder.geocode({'address': address}, function(results,status){
+        //     if(status === 'OK'){
+        //       map.setCenter(results[0].geometry.location);
+        //       var marker = new google.maps.Marker({
+        //         map: map,
+        //         position: results[0].geometry.location
+                
+        //       })
+        //     }else{
+        //       alert("not valid")
+        //     }
 
+        //   })
+
+        // }
+
+        
 
 
 
@@ -230,8 +308,8 @@ $(document).ready(function(){
         var destination = new google.maps.LatLng(latArray[latArray.length-1],lngArray[lngArray.length-1])
         // var waypoints = new google.maps.LatLng[(latArray[1],)]
         var origin = {
-          lat: latArray[0], 
-          lng: lngArray[0]
+          lat: location.lat, 
+          lng: location.lng
         }
 
         var waypoints = [
@@ -269,12 +347,15 @@ $(document).ready(function(){
           waypoints: waypoints,
           travelMode: "WALKING",
           optimizeWaypoints: false,
+          provideRouteAlternatives: true,
+          avoidHighways: true,
+          // unitSystem: UnitSystem.IMPERIAL,
         }, check
         )}
 
     // // Route the directions and pass the response to a function to create)
         function check (response,status) {
-          console.log(response)
+          // console.log(response)
           if(status === "OK"){
             document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
             directionsDisplay.setDirections(response);
@@ -306,12 +387,12 @@ $(document).ready(function(){
         stepDisplay.open(map, marker)
       })
     }
-     var circle = new google.maps.Circle({
-      map:map,
-      center: uluru,
-      radius: 1609,
-      fillColor: '#ff0000'
-      });
+     // var circle = new google.maps.Circle({
+     //  map:map,
+     //  center: uluru,
+     //  radius: 1609,
+     //  fillColor: '#ff0000'
+     //  });
     
 
 

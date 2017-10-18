@@ -15,7 +15,7 @@ body{
 	margin-top: 20px;
 }
 
-#box{
+.box{
 	height: 150px;
 	width: 100%;
 	/* border: 1px solid black; */
