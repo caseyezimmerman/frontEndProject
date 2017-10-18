@@ -35,8 +35,8 @@ $(document).ready(function(){
   var markerArray = []
 
         var uluru = {
-            lat: 33.7490,
-            lng: -84.3880
+            lat: 33.989073,
+            lng: -84.507361
         };
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
@@ -55,17 +55,17 @@ $(document).ready(function(){
 
 
 
-            var init_lat = 33.7490
-            var init_lng = -84.3880
+            var init_lat = 33.989073
+            var init_lng = -84.507361
             var range = 0.01
 
             var pointsLat = []
 
       function findCoordinates(lat, lng, range){
-          var numOfPoints = 3;
+          var numOfPoints = 4;
 
           var degreesPerPoint = -2 /numOfPoints;
-          var currentAngle = 90;
+          var currentAngle = 45;
           var x2;
           var y2;
           // var points = new Array();
@@ -97,6 +97,8 @@ $(document).ready(function(){
         //   }
         //   console.log(pointsLat)
       }
+
+
 
 
 
@@ -141,12 +143,15 @@ $(document).ready(function(){
 
 
         findCoordinates(init_lat, init_lng, range);
+         calculateAndDislayRoute(
+        directionsDisplay, directionsService, markerArray, stepDisplay, map);
 
       }
 
 
 
-       google.maps.event.addDomListener(window, 'load', initialize)
+       google.maps.event.addDomListener(window, 'load', initialize) /////when the window loads go and load google maps when google maps is done run initialize
+       ///////was calling calculateand display routes before google maps was loaded before our array was created
 
 
 
@@ -188,76 +193,119 @@ $(document).ready(function(){
     //   }
 
 
-    //   var directionsService = new google.maps.DirectionsService;
-    //   console.log(directionsService)
 
-    //   var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-    //   console.log(directionsDisplay)
-    //   var stepDisplay = new google.maps.InfoWindow;
+      ///////#$@^#%@^&%#^&@   DIRECTIONS START HERE    &*#&$(*)/////////////
 
-    //   calculateAndDislayRoute(
-    //     directionsDisplay, directionsService, markerArray, stepDisplay, map);
+
+      var directionsService = new google.maps.DirectionsService;
+      console.log(directionsService)
+
+      var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+      console.log(directionsDisplay)
+      var stepDisplay = new google.maps.InfoWindow;
+
+      // calculateAndDislayRoute(
+      //   directionsDisplay, directionsService, markerArray, stepDisplay, map);
 
     //   var onChangeHandler = function(){
     //     calculateAndDislayRoute(
     //     directionsDisplay, directionsService, markerArray, stepDisplay, map);
     //   };
 
-    //   document.getElementById('start').addEventListener('change', onChangeHandler);
+    //   latArray.lat([0]).addEventListener('change', onChangeHandler);
     //   document.getElementById('end').addEventListener('change', onChangeHandler);
     //   document.getElementById('startend').addEventListener('change', onChangeHandler);
 
 
-    //   function calculateAndDislayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map){
-    //     // console.log("test")
-    //     for(var i = 0; i < markerArray.length; i++){
-    //       markerArray[i].setMap(null);
-    //     }
-    //     // console.log("test")
-    //               // console.log(directionsService.route)
-    //               var start = document.getElementById('start').value
-    //               var end =  document.getElementById('end').value
-    //               var startend = document.getElementById('startend').value
-    //     directionsService.route({
-    //       origin: start,
-    //       destination: end,
-    //       travelMode: "WALKING",
-    //       optimizeWaypoints: false
-    //     }, check
-    //     )
-    // // Route the directions and pass the response to a function to create)
-    //     function check (response,status) {
-    //       if(status === "OK"){
-    //         document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-    //         directionsDisplay.setDirections(response);
-    //         showSteps(response,markerArray, stepDisplay, map);
+      function calculateAndDislayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map){
+        // console.log("test")
+        for(var i = 0; i < markerArray.length; i++){
+          markerArray[i].setMap(null);
+        }
+        // console.log("test")
+                  // console.log(directionsService.route)
+                  // var start = {latArray[0], lngArray[0]}
+                  // var end =  {latArray[latArray.length-1], lngArray[lngArray.length-1]}
+        // var origin = new google.maps.LatLng(latArray[0], lngArray[0])
+        var destination = new google.maps.LatLng(latArray[latArray.length-1],lngArray[lngArray.length-1])
+        // var waypoints = new google.maps.LatLng[(latArray[1],)]
+        var origin = {
+          lat: latArray[0], 
+          lng: lngArray[0]
+        }
 
-    //       }else{
-    //         window.alert("Request failed due to" + status)
-    //       }
-    //     }
-    //   }
+        var waypoints = [
+          { 
+            location:{
+              lat: latArray[1],
+              lng: lngArray[1]
+            }
+          },
+          {
+            location: {
+              lat:latArray[2],
+              lng: lngArray[2]
+            }
+          },
+           {
+            location: {
+              lat:latArray[3],
+              lng: lngArray[3]
+            }
+          },
+           {
+            location: {
+              lat:latArray[4],
+              lng: lngArray[4]
+            }
+          }
+        ]
+
+        console.log(latArray[0])
+
+        directionsService.route({
+          origin: origin,
+          destination: origin,
+          waypoints: waypoints,
+          travelMode: "WALKING",
+          optimizeWaypoints: false,
+        }, check
+        )}
+
+    // // Route the directions and pass the response to a function to create)
+        function check (response,status) {
+          console.log(response)
+          if(status === "OK"){
+            document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
+            directionsDisplay.setDirections(response);
+            showSteps(response,markerArray, stepDisplay, map);
+
+          }else{
+            window.alert("Request failed due to" + status)
+          }
+        }
+      
     //   console.log("test")
 
     
-    //   var myRoute;
-    // function showSteps(directionResult, markerArray, stepDisplay, map){
-    //   myRoute = directionResult.routes[0].legs[0];
-    //   for(var i = 0; i < myRoute.steps.length; i++){
-    //     var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
-    //     marker.setMap(map);
-    //     marker.setPosition(myRoute.steps[i].start_location);
-    //     attachInstructionText(
-    //       stepDisplay, marker, myRoute.steps[i].instructions.map);
-    //   }
-    // }
+      var myRoute;
+    function showSteps(directionResult, markerArray, stepDisplay, map){
+      myRoute = directionResult.routes[0].legs[0];
+      for(var i = 0; i < myRoute.steps.length; i++){
+        var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
+        marker.setMap(map);
+        marker.setPosition(myRoute.steps[i].start_location);
+        attachInstructionText(
+          stepDisplay, marker, myRoute.steps[i].instructions.map);
+      }
+    }
 
-    // function attachInstructionText(stepDisplay, marker, text, map){
-    //   google.maps.event.addListener(marker, "click", function(){
-    //     stepDisplay.setContent(text);
-    //     stepDisplay.open(map, marker)
-    //   })
-    // }
+    function attachInstructionText(stepDisplay, marker, text, map){
+      google.maps.event.addListener(marker, "click", function(){
+        stepDisplay.setContent(text);
+        stepDisplay.open(map, marker)
+      })
+    }
      var circle = new google.maps.Circle({
       map:map,
       center: uluru,
@@ -293,6 +341,7 @@ $(document).ready(function(){
   // }, 1000)
 
   }
+
 
 
 
