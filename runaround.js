@@ -88,10 +88,10 @@ $(document).ready(function(){
 
   var markerArray = []
 
-        var uluru = {
-            lat: 33.989073,
-            lng: -84.507361
-        };
+        // var uluru = {
+        //     lat: 33.989073,
+        //     lng: -84.507361
+        // };
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
             center: location
