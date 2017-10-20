@@ -26,7 +26,7 @@ var directionsDisplay;
 var directionsService;
 var stepDisplay;
 var markerArray = []
-
+var lat_lng;
 
 
 // var coordLocation = {
@@ -48,6 +48,7 @@ $(document).ready(function(){
   $('.run-form').submit(function(event){
     event.preventDefault();
     $("#instructions").show()
+    reset()
     // console.log("click")
     // userLocation = $("#location").val();
     
@@ -66,10 +67,7 @@ $(document).ready(function(){
         console.log(userLocationLatLng)
 
         initMap(userLocationLatLng)
-        // console.log(locationLatLng)
-        // console.log(results[0].geometry.location.lat())
-        // console.log(results[0].geometry.location.lng())
-        // return locationLatLng;
+        
         console.log(userLocationLatLng)
 
 
@@ -104,7 +102,7 @@ function initMap(coordLocation = {
   directionsService = new google.maps.DirectionsService;
   // console.log(directionsService)
   directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-  var stepDisplay = new google.maps.InfoWindow;
+  stepDisplay = new google.maps.InfoWindow;
   directionsDisplay.setPanel(document.getElementById('instructions'));
   // google.maps.event.addDomListener(window, 'load', function(){
   //   initialize(userLocation)
@@ -150,7 +148,7 @@ function initMap(coordLocation = {
 
 
     function findCoordinates(lat, lng, range){
-          var numOfPoints = 9;
+          var numOfPoints = 6;
           var degreesPerPoint = -5 /numOfPoints;
           var currentAngle = 45;
           var x2;
@@ -162,10 +160,12 @@ function initMap(coordLocation = {
           newLng = lng+y2;
           // console.log(typeof newLat);
           // console.log(newLng)
-          var lat_lng = new google.maps.LatLng(newLat,newLng);
-          var marker = new google.maps.Marker({
+          lat_lng = new google.maps.LatLng(newLat,newLng);
+          marker = new google.maps.Marker({
             position: lat_lng,
-            map: map
+            map: map,
+            visibile: false
+            
           });
           markerArray.push(marker);
           latArray.push(lat_lng.lat()) ////push lats of points we just looped through and placed on map
@@ -227,24 +227,24 @@ function initMap(coordLocation = {
               lng: lngArray[6]
             }
           },
-          {
-            location: {
-              lat:latArray[7],
-              lng: lngArray[7]
-            }
-          },
-          {
-            location: {
-              lat:latArray[8],
-              lng: lngArray[8]
-            }
-          },
-          {
-            location: {
-              lat:latArray[9],
-              lng: lngArray[9]
-            }
-          }
+          // {
+          //   location: {
+          //     lat:latArray[7],
+          //     lng: lngArray[7]
+          //   }
+          // },
+          // {
+          //   location: {
+          //     lat:latArray[8],
+          //     lng: lngArray[8]
+          //   }
+          // },
+          // {
+          //   location: {
+          //     lat:latArray[9],
+          //     lng: lngArray[9]
+          //   }
+          // }
         ]
 
         console.log(latArray[0])
@@ -274,6 +274,27 @@ function initMap(coordLocation = {
           // attachInstructionText()
 
     }
+
+
+  function reset(){
+    // markerArray = []
+    latArray = []
+    lngArray = []
+    map = new google.maps.Map(document.getElementById('map'),{
+      zoom: 14,
+      center: userLocationLatLng
+    })
+    marker = new google.maps.Marker({
+      position: lat_lng,
+      map:map
+    })
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+    stepDisplay = new google.maps.InfoWindow;
+    directionsDisplay.setPanel(document.getElementById('instructions'));
+  }
+
+
 
 
     var myRoute;
