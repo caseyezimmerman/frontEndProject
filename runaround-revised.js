@@ -265,12 +265,12 @@ function initMap(coordLocation = {
           if(status === "OK"){
             document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
             directionsDisplay.setDirections(response);
-            showSteps(response,markerArray, stepDisplay, map);
+            // showSteps(response,markerArray, stepDisplay, map);
 
           }else{
             window.alert("Request failed due to" + status)
           }
-          showSteps()
+          // showSteps()
           // attachInstructionText()
 
     }
@@ -278,30 +278,30 @@ function initMap(coordLocation = {
 
     var myRoute;
     var legsArray = []
-  function showSteps(directionResult, markerArray, stepDisplay, map){
-      myRoute = directionResult.routes[0].legs
-      console.log(myRoute)
-      // console.log(myRoute)
-      for(var j=0; j < directionResult.routes[0].legs.length; j++){
-        legsArray.push(directionResult.routes[0].legs[j])
-      }
-      console.log(legsArray)
+  // function showSteps(directionResult, markerArray, stepDisplay, map){
+  //     myRoute = directionResult.routes[0].legs
+  //     console.log(myRoute)
+  //     // console.log(myRoute)
+  //     for(var j=0; j < directionResult.routes[0].legs.length; j++){
+  //       legsArray.push(directionResult.routes[0].legs[j])
+  //     }
+  //     console.log(legsArray)
       // myRoute = directionResult.routes[0].legs[0]
       // console.log(myRoute)
       // for(var i = 0; i < directionResult.routes[0].legs.length; i++){
       //   marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
       //   marker.setMap(map);
       //   marker.setPosition(myRoute.steps[i].start_location);
-        attachInstructionText(
-          stepDisplay, marker, myRoute.steps.instructions.map);
+        // attachInstructionText(
+          // stepDisplay, marker, myRoute.instructions.map);
       // }
-    }
+  //   }
 
 
-  function attachInstructionText(stepDisplay, marker, text, map){
-      google.maps.event.addListener(marker, "click", function(){
-        stepDisplay.setContent(text);
-        stepDisplay.open(map, marker)
-      })
-    }
+  // function attachInstructionText(stepDisplay, marker, text, map){
+  //     google.maps.event.addListener(marker, "click", function(){
+  //       stepDisplay.setContent(text);
+  //       stepDisplay.open(map, marker)
+  //     })
+  //   }
 
