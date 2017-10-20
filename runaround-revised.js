@@ -47,6 +47,7 @@ var lngArray = []
 $(document).ready(function(){
   $('.run-form').submit(function(event){
     event.preventDefault();
+    $("#instructions").show()
     // console.log("click")
     // userLocation = $("#location").val();
     
@@ -104,6 +105,7 @@ function initMap(coordLocation = {
   // console.log(directionsService)
   directionsDisplay = new google.maps.DirectionsRenderer({map: map});
   var stepDisplay = new google.maps.InfoWindow;
+  directionsDisplay.setPanel(document.getElementById('instructions'));
   // google.maps.event.addDomListener(window, 'load', function(){
   //   initialize(userLocation)
   // });
@@ -291,7 +293,7 @@ function initMap(coordLocation = {
       //   marker.setMap(map);
       //   marker.setPosition(myRoute.steps[i].start_location);
         attachInstructionText(
-          stepDisplay, marker, myRoute.steps[j].instructions.map);
+          stepDisplay, marker, myRoute.steps.instructions.map);
       // }
     }
 
