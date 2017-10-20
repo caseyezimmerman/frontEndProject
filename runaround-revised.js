@@ -15,7 +15,7 @@ var ajaxRequest = $.ajax({
 });
 // console.log(ajaxRequest)
  
-var locationLatLng;
+var userLocationLatLng;
 var init_lat;
 var init_lng;
 var range;
@@ -57,19 +57,19 @@ $(document).ready(function(){
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': address}, function(results,status){
       if(status === 'OK'){
-        locationLatLng = {
+        userLocationLatLng = {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           }
 
-        console.log(locationLatLng)
+        console.log(userLocationLatLng)
 
-        initMap(locationLatLng)
+        initMap(userLocationLatLng)
         // console.log(locationLatLng)
         // console.log(results[0].geometry.location.lat())
         // console.log(results[0].geometry.location.lng())
         // return locationLatLng;
-        console.log(locationLatLng)
+        console.log(userLocationLatLng)
 
 
         findCoordinates(init_lat, init_lng, range);
@@ -148,8 +148,8 @@ function initMap(coordLocation = {
 
 
     function findCoordinates(lat, lng, range){
-          var numOfPoints = 4;
-          var degreesPerPoint = -4 /numOfPoints;
+          var numOfPoints = 9;
+          var degreesPerPoint = -5 /numOfPoints;
           var currentAngle = 45;
           var x2;
           var y2;
@@ -181,7 +181,7 @@ function initMap(coordLocation = {
         
         // var destination = new google.maps.LatLng(latArray[latArray.length-1],lngArray[lngArray.length-1])
         
-          var origin = locationLatLng
+          var origin = userLocationLatLng
         // var origin = {
         //   lat: userLocation.lat, 
         //   lng: userLocation.lng
@@ -212,6 +212,36 @@ function initMap(coordLocation = {
               lat:latArray[4],
               lng: lngArray[4]
             }
+          },
+          {
+            location: {
+              lat:latArray[5],
+              lng: lngArray[5]
+            }
+          },
+          {
+            location: {
+              lat:latArray[6],
+              lng: lngArray[6]
+            }
+          },
+          {
+            location: {
+              lat:latArray[7],
+              lng: lngArray[7]
+            }
+          },
+          {
+            location: {
+              lat:latArray[8],
+              lng: lngArray[8]
+            }
+          },
+          {
+            location: {
+              lat:latArray[9],
+              lng: lngArray[9]
+            }
           }
         ]
 
@@ -222,7 +252,7 @@ function initMap(coordLocation = {
           destination: origin,
           waypoints: waypoints,
           travelMode: "WALKING",
-          optimizeWaypoints: false,
+          optimizeWaypoints: true,
           provideRouteAlternatives: true,
           avoidHighways: true,
           // unitSystem: UnitSystem.IMPERIAL,
