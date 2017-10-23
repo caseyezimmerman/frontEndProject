@@ -21,12 +21,17 @@ var init_lng;
 var range;
 var geocoder;
 var marker;
+var marker2;
+var marker3;
 var map;
 var directionsDisplay;
 var directionsService;
 var stepDisplay;
 var markerArray = []
+var markerArray2 = []
+var markerArray3 = []
 var lat_lng;
+var currentAngle;
 
 
 // var coordLocation = {
@@ -56,6 +61,9 @@ $(document).ready(function(){
     // console.log(userLocation)
     // markerArray = []
     var address = document.getElementById("location").value;
+    var distance = $('select :selected').change(function(){
+    $("#miles option:selected").val();
+});
     geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': address}, function(results,status){
       if(status === 'OK'){
@@ -71,9 +79,16 @@ $(document).ready(function(){
         console.log(userLocationLatLng)
 
 
-        findCoordinates(init_lat, init_lng, range);
+        findCoordinates(init_lat, init_lng, range, 45);
+
         calculateAndDislayRoute(
         directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation);
+      
+        calculateAndDislayRoute(
+        directionsDisplay2, directionsService2, markerArray2, stepDisplay, map2, userLocation);
+      
+        calculateAndDislayRoute(
+        directionsDisplay3, directionsService3, markerArray3, stepDisplay, map3, userLocation);
       }else{
         // alert("not valid")
       }
@@ -94,14 +109,39 @@ function initMap(coordLocation = {
     zoom: 14,
     center: coordLocation
   });
+  map2 = new google.maps.Map(document.getElementById('map2'), {
+    zoom: 14,
+    center: coordLocation
+  });
+  map3 = new google.maps.Map(document.getElementById('map3'), {
+    zoom: 14,
+    center: coordLocation
+  });
+
   // console.log(map)
   marker = new google.maps.Marker({
     position: coordLocation,
     map: map
   });
+  marker2 = new google.maps.Marker({
+    position: coordLocation,
+    map: map2
+  });
+  marker3 = new google.maps.Marker({
+    position: coordLocation,
+    map: map3
+  });
+
+
   directionsService = new google.maps.DirectionsService;
+  directionsService2 = new google.maps.DirectionsService;
+  directionsService3 = new google.maps.DirectionsService;
   // console.log(directionsService)
   directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+  directionsDisplay2 = new google.maps.DirectionsRenderer({map: map2});
+  directionsDisplay3 = new google.maps.DirectionsRenderer({map: map3});
+
+
   stepDisplay = new google.maps.InfoWindow;
   directionsDisplay.setPanel(document.getElementById('instructions'));
   // google.maps.event.addDomListener(window, 'load', function(){
@@ -119,13 +159,17 @@ function initMap(coordLocation = {
 
   function initialize(userLocation){
         markerArray = []
+        markerArray2 = []
+        markerArray3 = []
         init_lat = userLocation.lat
         console.log(init_lat)
         init_lng = userLocation.lng
         range = 0.011
-        var mapDiv = document.getElementById('#map');
+        // var mapDiv = document.getElementById('#map');
         var init_lat_lng = new google.maps.LatLng(init_lat,init_lng);
         markerArray.push(marker);
+        markerArray2.push(marker2);
+        markerArray3.push(marker3);
         latArray.push(init_lat_lng.lat()) /////push lat of our initial point
         lngArray.push(init_lat_lng.lng()) /////push lng of our initial point
         // console.log(geocoder)
@@ -147,10 +191,10 @@ function initMap(coordLocation = {
 
 
 
-    function findCoordinates(lat, lng, range){
+    function findCoordinates(lat, lng, range, currentAngle){
           var numOfPoints = 6;
           var degreesPerPoint = -5 /numOfPoints;
-          var currentAngle = 45;
+          currentAngle = currentAngle;
           var x2;
           var y2;
         for(var i=0; i < numOfPoints; i++){
@@ -164,10 +208,25 @@ function initMap(coordLocation = {
           marker = new google.maps.Marker({
             position: lat_lng,
             map: map,
-            visibile: false
+            // visibile: false
+            
+          });
+          marker2 = new google.maps.Marker({
+            position: lat_lng,
+            map: map2,
+            // visibile: false
+            
+          });
+          marker3 = new google.maps.Marker({
+            position: lat_lng,
+            map: map3,
+            // visibile: false
             
           });
           markerArray.push(marker);
+          markerArray2.push(marker2);
+          markerArray3.push(marker3);
+
           latArray.push(lat_lng.lat()) ////push lats of points we just looped through and placed on map
           lngArray.push(lat_lng.lng()) ////push lngs of points we just looped through and placed on map
           currentAngle += degreesPerPoint;
@@ -177,8 +236,15 @@ function initMap(coordLocation = {
 
   function calculateAndDislayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation){
         console.log(markerArray)
-        for(var i = 0; i < markerArray.length; i++){
+
+        for(let i = 0; i < markerArray.length; i++){
           markerArray[i].setMap(null);
+        }
+        for(let j = 0; j < markerArray.length; j++){
+          markerArray2[j].setMap(null);
+        }
+        for(let z = 0; z < markerArray.length; z++){
+          markerArray3[z].setMap(null);
         }
         
         // var destination = new google.maps.LatLng(latArray[latArray.length-1],lngArray[lngArray.length-1])
@@ -247,6 +313,87 @@ function initMap(coordLocation = {
           // }
         ]
 
+
+        var waypoints2 = [
+          { 
+            location:{
+              lat: latArray[1],
+              lng: lngArray[1]
+            }
+          },
+          {
+            location: {
+              lat:latArray[2],
+              lng: lngArray[2]
+            }
+          },
+           {
+            location: {
+              lat:latArray[3],
+              lng: lngArray[3]
+            }
+          },
+           {
+            location: {
+              lat:latArray[4],
+              lng: lngArray[4]
+            }
+          },
+          {
+            location: {
+              lat:latArray[5],
+              lng: lngArray[5]
+            }
+          },
+          {
+            location: {
+              lat:latArray[6],
+              lng: lngArray[6]
+            }
+          },
+          ]
+
+
+
+          var waypoints3 = [
+          { 
+            location:{
+              lat: latArray[1],
+              lng: lngArray[1]
+            }
+          },
+          {
+            location: {
+              lat:latArray[6],
+              lng: lngArray[6]
+            }
+          },
+           {
+            location: {
+              lat:latArray[3],
+              lng: lngArray[3]
+            }
+          },
+           {
+            location: {
+              lat:latArray[4],
+              lng: lngArray[4]
+            }
+          },
+          {
+            location: {
+              lat:latArray[5],
+              lng: lngArray[5]
+            }
+          },
+          {
+            location: {
+              lat:latArray[2],
+              lng: lngArray[2]
+            }
+          },
+          ]
+
         console.log(latArray[0])
 
         directionsService.route({
@@ -257,9 +404,42 @@ function initMap(coordLocation = {
           optimizeWaypoints: true,
           provideRouteAlternatives: true,
           avoidHighways: true,
+          
           // unitSystem: UnitSystem.IMPERIAL,
         }, check
-    )}
+    )
+
+        directionsService2.route({
+          origin: origin,
+          destination: origin,
+          waypoints: waypoints2,
+          travelMode: "WALKING",
+          optimizeWaypoints: true,
+          provideRouteAlternatives: true,
+          avoidHighways: true,
+          
+          // unitSystem: UnitSystem.IMPERIAL,
+        }, check
+    )
+
+        directionsService3.route({
+          origin: origin,
+          destination: origin,
+          waypoints: waypoints3,
+          travelMode: "WALKING",
+          optimizeWaypoints: true,
+          provideRouteAlternatives: true,
+          avoidHighways: true,
+          
+          // unitSystem: UnitSystem.IMPERIAL,
+        }, check
+    )
+
+
+
+      }
+
+
 
   function check (response,status) {
           if(status === "OK"){
