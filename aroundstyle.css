@@ -8,6 +8,8 @@
 	min-height: 750px;
 	background-attachment: fixed;
 	background-size: cover;
+	
+
 }
 
 .container{
@@ -149,4 +151,15 @@ button{
 	/*background-color: #F6F6FA;*/
 }
 
+.login{
+	position: absolute;
+	margin:10px;
+	font-size:20px;
+	border:1px solid black;
+	padding:8px;
 
+}
+
+/*.navbar{
+	position: absolute;
+}*/
