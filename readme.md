@@ -22,7 +22,7 @@
 ### Function Ordering Challenge
 ###### Another unforeseen problem was having javascript return google maps as undefined.  We discovered this was due to improper ordering/placing of function.  Originally we had our AJAX request inside of our document.ready function, and initMap function, instantiates the new map, outside of document.ready. After some lucky console.loging, we discovered that javascript was trying to run those function before the AJAX request was finished. We solved this by placing the ajax request outside of the document.ready function and placing our init map function which  inside of our geocoder function.
  
-### Waypoints Challenge
+### Generating Extra Points Challenge
 ###### Generating a route whose start and destination also proved challenging. Google Maps is designed to take a user from point A to point B in the most efficient line possible. Our goal was to essentially take the user in a circle, something that Google Maps is not readily designed for. We ended up using triangles to generate extra points based on the user's current location. These extra points are denoted as Waypoints,a parameter Google Maps is prepared to take. A path is then generated that connects the start point,destination point, as well as the waypoints in the middle.
 
 ### Waypoints Object Challenge 
@@ -33,6 +33,8 @@
 ###### We were concerned about ensuring the path would always stay on a viable walking path, but thanks to Google Maps WALKING parameter, this was an easy victory.  
 
 ###### The setPanel method made displaying the directions an easier task than originally expected.  
+
+###### We created an option to generate paths of different sizes based on the users desired distance. We were pleasantly surprised that changing the distance based on our range variable was easy with some simple if/else if statements.  
 
 ## Code Snippets
 
@@ -48,8 +50,33 @@ var ajaxRequest = $.ajax({
     crossDomain: true // tell the browser to allow cross domain calls.
 });
 ```
-
-###### Waypoints Challenge - note the object of objects
+###### Generating Extra Points Challenge
+```javascript 
+function findCoordinates(lat, lng, range) {
+    var numOfPoints = 6;
+    var degreesPerPoint = -5 / numOfPoints;
+    var x2;
+    var y2;
+    var currentAngle = 45;
+    map = map;
+    for (let i = 0; i <= numOfPoints; i++) {
+        x2 = Math.cos(currentAngle) * range;
+        y2 = Math.sin(currentAngle) * range;
+        newLat = lat + x2;
+        newLng = lng + y2;
+        lat_lng = new google.maps.LatLng(newLat, newLng);
+        marker = new google.maps.Marker({
+            position: lat_lng,
+            map: map,
+        });
+        latArray.push(lat_lng.lat()); ////push lats of points we just looped through and placed on map
+        lngArray.push(lat_lng.lng());
+        markerArray.push(marker);
+        currentAngle += degreesPerPoint;
+    }
+};
+```
+###### Waypoints Object Challenge - note the object of objects
 ```javascript 
 var waypoints = [{
             location: {
@@ -90,6 +117,7 @@ var waypoints = [{
 ```        
 
 ## TODO List
+###### Upon user submission, display three different routes with similar distances.  This will be accomplished  by adjusting the angle of the triangle used to find the points.  
 ###### Add in filter mechanism based on crime right to improve user safety. 
 ###### Add Google Maps Elevation API to add more hills to the user's run, if desired.
 ###### Add marker animation.
