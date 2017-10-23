@@ -17,20 +17,20 @@
 ###### One of the main challenges was simply javascript's handling of scope. We found that setting almost all variables as undefined globals was often the best practice. 
 
 ### AJAX Request Challenge
-###### This was one of the first hurdles to get over. In order to protect our API key from being viewed on github, we saved the key to a config file which was then hidden by a .gitignore file. After this, we expected to make a simple AJAX request and pass the key in as a variable, but google maps required one more step before doing. You have to make a jsonpCallback, and call the function which instantiate the map object, as process which is a little more complicated than more simple API's like Yahoo and Weather.com.
+###### This was one of the first hurdles to get over. In order to protect our API key from being viewed on github, we saved the key to a config file which was then hidden by a .gitignore file. After this, we expected to make a simple AJAX request and pass the key in as a variable, but google maps required one more step before doing. You have to make a jsonpCallback, and call the function which instantiates the map object, a process which is a little more complicated than more simple API's like Yahoo and Weather.com.
 
 ### Function Ordering Challenge
-###### Another unforeseen problem was having javascript return google maps as undefined.  We discovered this was due to improper ordering/placing of function.  Originally we had our AJAX request inside of our document.ready function, and initMap function, instantiates the new map, outside of document.ready. After some lucky console.loging, we discovered that javascript was trying to run those function before the AJAX request was finished. We solved this by placing the ajax request outside of the document.ready function and placing our init map function which  inside of our geocoder function.
+###### Another unforeseen problem was having javascript return google maps as undefined.  We discovered this was due to improper ordering/placing of functions. Originally we had our AJAX request inside of our document.ready function, and initMap function, instantiates the new map, outside of document.ready. After some lucky console.loging, we discovered that javascript was trying to run those function before the AJAX request was finished. We solved this by placing the ajax request outside of the document.ready function and placing our init map function which  inside of our geocoder function.
  
 ### Generating Extra Points Challenge
-###### Generating a route whose start and destination also proved challenging. Google Maps is designed to take a user from point A to point B in the most efficient line possible. Our goal was to essentially take the user in a circle, something that Google Maps is not readily designed for. We ended up using triangles to generate extra points based on the user's current location. These extra points are denoted as Waypoints,a parameter Google Maps is prepared to take. A path is then generated that connects the start point,destination point, as well as the waypoints in the middle.
+###### Generating a route whose start and destination are the same, while still having different points also proved challenging. Google Maps is designed to take a user from point A to point B in the most efficient line possible. Our goal was to essentially take the user in a circle, something that Google Maps is not readily designed for. We ended up using triangles to generate extra points based on the user's current location. These extra points are denoted as Waypoints,a parameter Google Maps is prepared to take. A path is then generated that connects the start point,destination point, as well as the waypoints in the middle.
 
 ### Waypoints Object Challenge 
-###### Once we had our waypoints, we were still not getting the path to connect because we were not passing in the waypoints' data correctly. We were passing them in as latitude, longitude objects, as we expected, yet we were still finding errors. We discovered that google maps is expecting a location: object, which has the latitude, longitude object.  So in fact, our waypoints object needed to be an object of objects.  
+###### Once we had our waypoints, we were still not getting the path to run through the waypoints because we were not passing in the waypoints' data correctly. We were passing them in as latitude, longitude objects, as we expected, yet we were still finding errors. We discovered that google maps is expecting a location: object, which has the latitude, longitude object.  So in fact, our waypoints array needed to be an object of objects.  
 
 ## Happy Victories
 
-###### We were concerned about ensuring the path would always stay on a viable walking path, but thanks to Google Maps WALKING parameter, this was an easy victory.  
+###### We were concerned about ensuring the path would always stay on a viable walking path, but thanks to Google Maps' WALKING parameter, this was an easy victory.  
 
 ###### The setPanel method made displaying the directions an easier task than originally expected.  
 

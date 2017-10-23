@@ -37,7 +37,6 @@ $(document).ready(function() {
     $('.run-form').submit(function(event) {
         event.preventDefault();
         $("#instructions").show()
-        $(".milesBox").show()
         reset()
         var address = document.getElementById("location").value;
         var x = document.getElementById("miles").selectedIndex;
