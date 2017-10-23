@@ -21,45 +21,48 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9 col-md-offset-2">
-            <div class="col-xs-11 col-sm-11 col-md-3">
-            	<form class="run-form">
-                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
-                	<div class="info">Tell us your current location</div></br>
-                		<input id="location" type="text" placeholder="Current Location" />
-                </div>
-                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
-                	<div class="info">How many miles do you want to run?</div></br>
-                	<select name="miles">
-					  <option value="short">1-3 miles</option>
-					  <option value="long">3-5 miles</option>
-					  <option value="longer">5-7 miles</option>
-					  <option value="longest">7-10 miles</option>
-					</select>
-                </div>
-                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
-                	<div class="info">Get routes and go for a run!</div> </br>
-                		<button class="btn btn-default" type="submit" placeholder="Run!">Submit</button>
-                </div>
-                </form>
-            </div>
-           
-            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
-                <div id="map"></div>
-            </div>
-            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
-                <div id="map2"></div>
-            </div>
-            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
-                <div id="map3"></div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-3" id="instructions">
-            </div>
-            
-            <div id="warning-panel">
-            </div>
+    	<div class="col-sm-12">
+    		<div class="milesBox col-sm-2 col-sm-offset-5">Miles:
     	</div>
-    	
+	        <div class="col-md-9 col-md-offset-2">
+	            <div class="col-xs-11 col-sm-11 col-md-3">
+	            	<form class="run-form">
+	                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
+	                	<div class="info">Tell us your current location</div></br>
+	                		<input id="location" type="text" placeholder="Current Location" />
+	                </div>
+	                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
+	                	<div class="info">How many miles do you want to run?</div></br>
+	                	<select id="miles">
+						  <option value="short">1-3 miles</option>
+						  <option value="long">3-5 miles</option>
+						  <option value="longer">5-7 miles</option>
+						  <option value="longest">7-10 miles</option>
+						</select>
+	                </div>
+	                <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-12 box">
+	                	<div class="info">Get routes and go for a run!</div> </br>
+	                		<button class="btn btn-default" type="submit" placeholder="Run!">Submit</button>
+	                </div>
+	                </form>
+	            </div>
+	           
+	            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
+	                <div id="map"></div>
+	            </div>
+	            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
+	                <div id="map2"></div>
+	            </div>
+	            <div class="col-xs-8 col-sm-8 col-md-6" id="wrapper">
+	                <div id="map3"></div>
+	            </div>
+	            <div class="col-xs-4 col-sm-4 col-md-3" id="instructions">
+	            </div>
+	            
+	            <div id="warning-panel">
+	            </div>
+	    	</div>
+	    	
     </div>
 </div>
 
