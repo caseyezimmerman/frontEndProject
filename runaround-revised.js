@@ -51,6 +51,12 @@ var latArray2 = []
 var lngArray2 = []
 var latArray3 = []  
 var lngArray3 = []
+var waypoints;
+var waypoints2;
+var waypoints3;
+var currentAngle = 90;
+var currentAngle2 = 0;
+var currentAngle3 = 45;
   
 
 $(document).ready(function(){
@@ -98,13 +104,13 @@ $(document).ready(function(){
         findCoordinates(init_lat, init_lng, range);
 
         calculateAndDislayRoute(
-        directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation);
+        directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation, waypoints);
       
         calculateAndDislayRoute(
-        directionsDisplay2, directionsService, markerArray2, stepDisplay, map2, userLocation);
+        directionsDisplay2, directionsService, markerArray2, stepDisplay, map2, userLocation, waypoints2);
       
         calculateAndDislayRoute(
-        directionsDisplay3, directionsService, markerArray3, stepDisplay, map3, userLocation);
+        directionsDisplay3, directionsService, markerArray3, stepDisplay, map3, userLocation, waypoints3);
       }else{
         // alert("not valid")
       }
@@ -216,7 +222,7 @@ function initMap(coordLocation = {
           // currentAngle = currentAngle;
           var x2;
           var y2;
-          var currentAngle = 45;
+          
           // var currentAngle2 = 90;
           // var currentAngle3 = 0;
 
@@ -241,7 +247,7 @@ function initMap(coordLocation = {
           markerArray.push(marker);
           currentAngle += degreesPerPoint;
         }
-          var currentAngle2 = 90;
+          
           for(let i=0; i <= numOfPoints; i++){
           x2 = Math.cos(currentAngle2) * range;
           y2 = Math.sin(currentAngle2) * range;
@@ -261,7 +267,7 @@ function initMap(coordLocation = {
           markerArray2.push(marker2);
           currentAngle2 += degreesPerPoint;
         }
-          var currentAngle3 = 0;
+          
           for(let i=0; i <= numOfPoints; i++){
           x2 = Math.cos(currentAngle3) * range;
           y2 = Math.sin(currentAngle3) * range;
@@ -298,11 +304,14 @@ function initMap(coordLocation = {
           // currentAngle += degreesPerPoint;
           // currentAngle2 += degreesPerPoint;
           // currentAngle3 += degreesPerPoint;
+          console.log(currentAngle)
+          console.log(currentAngle2)
+          console.log(currentAngle3)
     };
 
 
-  function calculateAndDislayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation){
-        console.log(markerArray)
+  function calculateAndDislayRoute(directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation, waypoints){
+        // console.log(markerArray)
 
         for(let i = 0; i < markerArray.length; i++){
           markerArray[i].setMap(null);
@@ -317,7 +326,7 @@ function initMap(coordLocation = {
         // }
         // console.log(typeof origin)
 
-        var waypoints = [
+      waypoints = [
           { 
             location:{
               lat: latArray[1],
@@ -372,10 +381,10 @@ function initMap(coordLocation = {
           //     lng: lngArray[9]
           //   }
           // }
-        ]
+      ]
 
 
-        var waypoints2 = [
+      waypoints2 = [
           { 
             location:{
               lat: latArray2[1],
@@ -412,12 +421,12 @@ function initMap(coordLocation = {
               lng: lngArray2[6]
             }
           }
-          ]
+      ]
           
 
 
 
-          var waypoints3 = [
+      waypoints3 = [
           { 
             location:{
               lat: latArray3[1],
@@ -455,11 +464,11 @@ function initMap(coordLocation = {
             }
           }
 
-          ]
+      ]
 
-        console.log(waypoints)
-        console.log(waypoints2)
-        console.log(waypoints3)
+        // console.log(waypoints)
+        // console.log(waypoints2)
+        // console.log(waypoints3)
 
         directionsService.route({
           origin: origin,
@@ -532,7 +541,7 @@ function initMap(coordLocation = {
           // attachInstructionText()
 
         })
-      }
+  }
 
 
 
