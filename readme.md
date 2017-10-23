@@ -29,6 +29,8 @@
 
 ###### We were concerned about ensuring the path would always stay on a viable walking path, but thanks to Google Maps WALKING parameter, this was an easy victory.  
 
+###### The setPanel method made displaying the directions an easier task than originally expected.  
+
 ## Code Snippets
 
 ###### AJAX Request Challenge - note the jsonpCallback
