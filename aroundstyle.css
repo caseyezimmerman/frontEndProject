@@ -160,6 +160,15 @@ button{
 
 }
 
+.navbar{
+	/*position: absolute;*/
+	margin-bottom: -10px
+}
+
+.navbar-right{
+	text-align: right;
+}
+
 /*.navbar{
 	position: absolute;
 }*/
