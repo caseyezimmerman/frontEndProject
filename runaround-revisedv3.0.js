@@ -1,47 +1,37 @@
 // GLOBAL Vars/stuff
 var mapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
-var roadURL = `https://roads.googleapis.com/v1/snapToRoads?path=60.170880,24.942795|60.170879,24.942796|60.170877,24.942796&key=${apiKey}`
-var userLocation;
 var ajaxRequest = $.ajax({
     type: 'GET',
     url: mapURL,
-    url2: roadURL,
     dataType: 'jsonp',
     jsonpCallback: 'initMap',
     async: false, // this is by default false, so not need to mention
     crossDomain: true // tell the browser to allow cross domain calls.
 });
+var userLocation;
 var userLocationLatLng;
-var init_lat;
-var init_lng;
-var range;
-var geocoder;
+var init_lat; // set to userLocation.lat
+var init_lng; // set to userLocation.lng
+var range; // used to increase radius/length of path
+var geocoder; // turns userLocation string to usable coordination object
 var marker;
-var marker2;
-var marker3;
 var map;
-var directionsDisplay;
 var directionsService;
+var directionsDisplay;
 var stepDisplay;
-var markerArray = []
-var markerArray2 = []
-var markerArray3 = []
-var lat_lng;
-var latArray = []
-var lngArray = []
-var latArray2 = []
-var lngArray2 = []
-var latArray3 = []
-var lngArray3 = []
+var markerArray = [];
+var lat_lng; // used for extra
+var latArray = [];
+var lngArray = [];
 $(document).ready(function() {
     $('.run-form').submit(function(event) {
         event.preventDefault();
-        $("#instructions").show()
         reset()
-        var address = document.getElementById("location").value;
-        var x = document.getElementById("miles").selectedIndex;
-        var distance = document.getElementsByTagName("option")[x].innerHTML;
-        console.log(distance)
+        $("#instructions").show()
+        userLocation = document.getElementById("location").value;
+        // 32 - 33 for grabbing drop down menu value as a string
+        var indexValue = document.getElementById("miles").selectedIndex;
+        var distance = document.getElementsByTagName("option")[indexValue].innerHTML;
         if (distance == "1-3 miles") {
             range = .011
         } else if (distance == "3-5 miles") {
@@ -52,22 +42,22 @@ $(document).ready(function() {
             range = .017
         }
         geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, function(results, status) {
+        geocoder.geocode({ 'address': userLocation }, function(results, status) {
             if (status === 'OK') {
                 userLocationLatLng = {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 }
-                initMap(userLocationLatLng)
-                findCoordinates(init_lat, init_lng, range);
-                calculateAndDislayRoute(
+                initMap(userLocationLatLng) // places map where user submit value
+                findCoordinates(init_lat, init_lng, range); // generates 6 different coords for route
+                calculateAndDislayRoute( // connects the route 
                     directionsDisplay, directionsService, markerArray, stepDisplay, map, userLocation);
             }
         })
     });
 });
 
-function initMap(coordLocation = {
+function initMap(coordLocation = { // hard coded location upon page location
     lat: 33.989073,
     lng: -84.507361
 }) {
@@ -81,36 +71,29 @@ function initMap(coordLocation = {
         map: map
     });
     directionsService = new google.maps.DirectionsService; // calculates directions
-    directionsDisplay = new google.maps.DirectionsRenderer({ map: map }); // renders the directions to the screen
-    stepDisplay = new google.maps.InfoWindow; // do we need this?
-    directionsDisplay.setPanel(document.getElementById('instructions')); // sets the instruction panel
+    directionsDisplay = new google.maps.DirectionsRenderer({ map: map }); // renders the directions to be display
+    directionsDisplay.setPanel(document.getElementById('instructions')); // sets the html
+    stepDisplay = new google.maps.InfoWindow; // live updates userLocation
 }
 
-function initialize(userLocation) {
-    markerArray = []
+function initialize(userLocation) { // places first marker
+    markerArray = [] // empty the array
     init_lat = userLocation.lat
-    console.log(init_lat)
     init_lng = userLocation.lng
     var init_lat_lng = new google.maps.LatLng(init_lat, init_lng);
     markerArray.push(marker);
     latArray.push(init_lat_lng.lat()) /////push lat of our initial point
     lngArray.push(init_lat_lng.lng()) /////push lng of our initial point
-    var myOptions = {
-        zoom: 13,
-        center: init_lat_lng,
-        mapTypeId: 'roadmap' ///////or this one
-    }
 }
 
-function findCoordinates(lat, lng, range) {
+function findCoordinates(lat, lng, range) { // uses triangles to find extra points
     var numOfPoints = 6;
     var degreesPerPoint = -5 / numOfPoints;
     var x2;
     var y2;
-    var currentAngle = 45;
-    // map = map;
+    var currentAngle = 45; // changes where points are placed
     for (let i = 0; i <= numOfPoints; i++) {
-        x2 = Math.cos(currentAngle) * range;
+        x2 = Math.cos(currentAngle) * range; // range increases radius
         y2 = Math.sin(currentAngle) * range;
         newLat = lat + x2;
         newLng = lng + y2;
@@ -131,7 +114,7 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
         markerArray[i].setMap(null);
     }
     var origin = userLocationLatLng
-    var waypoints = [{
+    var waypoints = [{ // creates object for points generated with findCoordinates
             location: {
                 lat: latArray[1],
                 lng: lngArray[1]
@@ -172,14 +155,13 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
         origin: origin,
         destination: origin,
         waypoints: waypoints,
-        travelMode: "WALKING",
+        travelMode: "WALKING", // places path on viable/safe walking paths 
         optimizeWaypoints: true,
         provideRouteAlternatives: true,
         avoidHighways: true,
     }, (response, status) => {
-        if (status === "OK") {
+        if (status === "OK") { // safeguard against possibility of no viable paths available
             console.log(map)
-            document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
             directionsDisplay.setMap(map);
             directionsDisplay.setDirections(response);
         } else {
@@ -202,9 +184,6 @@ function reset() {
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({ map: null });
     stepDisplay = new google.maps.InfoWindow;
-    // directionsDisplay.setPanel(document.getElementById('instructions'));
     directionsDisplay.setPanel(null);
     document.getElementById("instructions").innerHTML = "";
 }
-var myRoute;
-var legsArray = []
