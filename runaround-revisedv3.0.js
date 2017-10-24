@@ -158,6 +158,7 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
         travelMode: "WALKING", // places path on viable/safe walking paths 
         optimizeWaypoints: true,
         provideRouteAlternatives: true,
+        avoidFerries: true,
         avoidHighways: true,
     }, (response, status) => {
         if (status === "OK") { // safeguard against possibility of no viable paths available

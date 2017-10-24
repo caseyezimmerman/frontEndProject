@@ -4,7 +4,7 @@
 /* } */ 
 
 .parallax{
-	background: url("first.jpg") no-repeat center;
+	background: url("skylineatl.jpg") no-repeat center;
 	min-height: 750px;
 	background-attachment: fixed;
 	background-size: cover;
@@ -13,7 +13,8 @@
 }
 
 .container{
-	background: url("container-background.jpeg") no-repeat center;
+	background: url("cityrun.jpeg") no-repeat center;
+	background-size:cover;
 	width: 100%;
 	height: 100vh;
 }
@@ -172,3 +173,11 @@ button{
 /*.navbar{
 	position: absolute;
 }*/
+
+#title{
+	text-align: center;
+	font-size:40px;
+	/*position: relative;*/
+	/*margin-left:520px;*/
+	letter-spacing: 10px;
+}
