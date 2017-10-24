@@ -80,10 +80,10 @@ function initMap(coordLocation = {
         position: coordLocation,
         map: map
     });
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
-    stepDisplay = new google.maps.InfoWindow;
-    directionsDisplay.setPanel(document.getElementById('instructions'));
+    directionsService = new google.maps.DirectionsService; // calculates directions
+    directionsDisplay = new google.maps.DirectionsRenderer({ map: map }); // renders the directions to the screen
+    stepDisplay = new google.maps.InfoWindow; // do we need this?
+    directionsDisplay.setPanel(document.getElementById('instructions')); // sets the instruction panel
 }
 
 function initialize(userLocation) {
@@ -108,7 +108,7 @@ function findCoordinates(lat, lng, range) {
     var x2;
     var y2;
     var currentAngle = 45;
-    map = map;
+    // map = map;
     for (let i = 0; i <= numOfPoints; i++) {
         x2 = Math.cos(currentAngle) * range;
         y2 = Math.sin(currentAngle) * range;
@@ -178,8 +178,9 @@ function calculateAndDislayRoute(directionsDisplay, directionsService, markerArr
         avoidHighways: true,
     }, (response, status) => {
         if (status === "OK") {
+            console.log(map)
             document.getElementById('warning-panel').innerHTML = '<b>' + response.routes[0].warnings + '</b>';
-            directionsDisplay.setMap('map')
+            directionsDisplay.setMap(map);
             directionsDisplay.setDirections(response);
         } else {
             window.alert("Request failed due to" + status)
@@ -199,9 +200,11 @@ function reset() {
         map: map
     })
     directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
+    directionsDisplay = new google.maps.DirectionsRenderer({ map: null });
     stepDisplay = new google.maps.InfoWindow;
-    directionsDisplay.setPanel(document.getElementById('instructions'));
+    // directionsDisplay.setPanel(document.getElementById('instructions'));
+    directionsDisplay.setPanel(null);
+    document.getElementById("instructions").innerHTML = "";
 }
 var myRoute;
 var legsArray = []
