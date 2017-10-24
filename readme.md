@@ -1,4 +1,4 @@
-# Run Around
+# City Runner
 ### A fun web app that provides users with a running path in their area.
 
 ## Overview/MVP
