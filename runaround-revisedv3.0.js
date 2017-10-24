@@ -33,13 +33,13 @@ $(document).ready(function() {
         var indexValue = document.getElementById("miles").selectedIndex;
         var distance = document.getElementsByTagName("option")[indexValue].innerHTML;
         if (distance == "1-3 miles") {
-            range = .011
+            range = .008
         } else if (distance == "3-5 miles") {
-            range = .013
+            range = .01
         } else if (distance == "5-7 miles") {
-            range = .015
+            range = .012
         } else if (distance == "7-10 miles") {
-            range = .017
+            range = .014
         }
         geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'address': userLocation }, function(results, status) {
