@@ -1,4 +1,4 @@
-# Run Around
+# City Runner
 ### A fun web app that provides users with a running path in their area.
 
 ## Overview/MVP
@@ -122,3 +122,4 @@ var waypoints = [{
 ###### Add Google Maps Elevation API to add more hills to the user's run, if desired.
 ###### Add marker animation.
 ###### Add in carousel feature for multiple maps.
+###### Refine distance control based on userLocation
