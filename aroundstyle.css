@@ -1,63 +1,62 @@
 /* body{
 	background: url("cloud.jpg")no-repeat center;
 	/* background-color: #4f555e; */
-/* } */ 
 
-.parallax{
-	background: url("skylineatl.jpg") no-repeat center;
-	min-height: 750px;
-	background-attachment: fixed;
-	background-size: cover;
-	
 
+/* } */
+
+.parallax {
+    background: url("skylineatl.jpg") no-repeat center;
+    min-height: 1000px;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
-.container{
-	background: url("cityrun.jpeg") no-repeat center;
-	background-size:cover;
-	width: 100%;
-	height: 100vh;
+.container {
+    background: url("cityrun.jpeg") no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
 }
 
-#wrapper{
-	height: 600px;
-	
+#wrapper {
+    height: 600px;
 }
 
-#map{
-	height: 100%;
-	margin-top: 20px;
-	box-shadow: 5px 5px 30px 0px rgba(0,0,0,0.81);
-	margin-right: 10px;
+#map {
+    height: 100%;
+    margin-top: 20px;
+    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
+    margin-right: 10px;
 }
 
-#map2{
-	height: 100%;
-	margin-top: 20px;
-	box-shadow: 5px 5px 30px 0px rgba(0,0,0,0.81);
-	margin-right: 10px;
+#map2 {
+    height: 100%;
+    margin-top: 20px;
+    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
+    margin-right: 10px;
 }
 
-#map3{
-	height: 100%;
-	margin-top: 20px;
-	box-shadow: 5px 5px 30px 0px rgba(0,0,0,0.81);
-	margin-right: 10px;
+#map3 {
+    height: 100%;
+    margin-top: 20px;
+    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
+    margin-right: 10px;
 }
 
-.box{
-	height: 150px;
-	/* width: 100%; */
-	/* border: 1px solid black; */
-	margin-bottom: 55px;
-	margin-top: 20px;
-	margin-right: 10px;
-	font-size: 20px;
-	font-family: "Optima";
-	background-color: #F6F6FA;
-	box-shadow: 5px 5px 30px 0px rgba(0,0,0,0.81);
-
+.box {
+    height: 150px;
+    /* width: 100%; */
+    /* border: 1px solid black; */
+    margin-bottom: 55px;
+    margin-top: 20px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-family: "Optima";
+    background-color: #F6F6FA;
+    box-shadow: 5px 5px 30px 0px rgba(0, 0, 0, 0.81);
 }
+
 
 /* #first{
 	height: 100vh;
@@ -65,119 +64,120 @@
 	margin: auto;
 } */
 
-input{
-	width: 170px;
-	position: relative;
-	/* margin-top: 10px; */
+input {
+    width: 170px;
+    position: relative;
+    /* margin-top: 10px; */
 }
 
-select{
-	/* margin-top:10px; */
-	width: 120px;
-	border-radius: 0px;
-	position: relative;
+select {
+    /* margin-top:10px; */
+    width: 120px;
+    border-radius: 0px;
+    position: relative;
 }
 
-button{
-	/* margin-top:10px; */
-	width: 70px;
-	position: relative;
-
+button {
+    /* margin-top:10px; */
+    width: 70px;
+    position: relative;
 }
 
-.info{
-	/* padding: 10px; */
-	margin-top: 10px;
-	/* padding: 10px; */
+.info {
+    /* padding: 10px; */
+    margin-top: 10px;
+    /* padding: 10px; */
 }
 
 #floating-panel {
-  position: absolute;
-  top: 20px;
-  left: 40%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 20px;
-  padding-left: 10px;
-  
+    position: absolute;
+    top: 20px;
+    left: 40%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto', 'sans-serif';
+    line-height: 20px;
+    padding-left: 10px;
 }
 
-#warning-panel{
-	display: none;
+#warning-panel {
+    display: none;
 }
 
-.warnbox-content, .warnbox-c1, .warnbox-c2{
-	display: none;
-	background-color: transparent;
-	z-index: -5;
+.warnbox-content,
+.warnbox-c1,
+.warnbox-c2 {
+    display: none;
+    background-color: transparent;
+    z-index: -5;
 }
 
 #instructions {
-    font-family: ‘Roboto’,‘sans-serif’;
+    font-family: ‘Roboto’, ‘sans-serif’;
     line-height: 30px;
     padding-left: 10px;
 }
 
-#instructions select, #instructions input {
-	font-size: 15px;
+#instructions select,
+#instructions input {
+    font-size: 15px;
 }
 
 #instructions select {
-	width: 100%;
+    width: 100%;
 }
 
 #instructions i {
-	font-size: 12px;
+    font-size: 12px;
 }
+
 #instructions {
-	height: 600px;
-	float: right;
-	overflow: scroll;
-	/* background-color: #F6F6FA; */
-	background-color: rgba(246, 246, 250, 0.4);
-	display: none;
-	margin-top: 20px;
-
+    height: 600px;
+    float: right;
+    overflow: scroll;
+    /* background-color: #F6F6FA; */
+    background-color: rgba(246, 246, 250, 0.4);
+    display: none;
+    margin-top: 20px;
 }
 
-.milesBox{
-	font-size:20px;
-	margin-top:5px;
-	display:none;
-	/*border:1px solid black;*/
-	/*background-color: #F6F6FA;*/
+.milesBox {
+    font-size: 20px;
+    margin-top: 5px;
+    display: none;
+    /*border:1px solid black;*/
+    /*background-color: #F6F6FA;*/
 }
 
-.login{
-	position: absolute;
-	margin:10px;
-	font-size:20px;
-	border:1px solid black;
-	padding:8px;
-
+.login {
+    position: absolute;
+    margin: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    padding: 8px;
 }
 
-.navbar{
-	/*position: absolute;*/
-	margin-bottom: -10px
+.navbar {
+    /*position: absolute;*/
+    margin-bottom: -10px
 }
 
-.navbar-right{
-	text-align: right;
+.navbar-right {
+    text-align: right;
 }
+
 
 /*.navbar{
 	position: absolute;
 }*/
 
-#title{
-	text-align: center;
-	font-size:40px;
-	/*position: relative;*/
-	/*margin-left:520px;*/
-	letter-spacing: 10px;
+#title {
+    text-align: center;
+    font-size: 40px;
+    /*position: relative;*/
+    /*margin-left:520px;*/
+    letter-spacing: 10px;
 }
