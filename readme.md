@@ -122,3 +122,4 @@ var waypoints = [{
 ###### Add Google Maps Elevation API to add more hills to the user's run, if desired.
 ###### Add marker animation.
 ###### Add in carousel feature for multiple maps.
+###### Refine distance control based on userLocation
